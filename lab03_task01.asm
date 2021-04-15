@@ -2,63 +2,24 @@
 .stack 100h
 
 .data
-arr1 db 1,2,3,4,5
-arr2 db 5 dup<?>
+str db 'This is string'
+len equ $-str
+
 
 .code
 main proc
     mov ax, @data
     mov ds, ax
     
-    ; int *si = arr1
-    lea si, arr1
+    mov cx, len
+    mov al, 0
     
-    ;int *di = arr2+4
-    lea di, arr2+4
+    countStringLength:
+          inc al
+          
+    loop countStringLength
     
-    ; al = *si
-    mov al, [si]
+    break:
     
-    ; *di = al
-    mov [di], al
-    
-    ; si++
-    inc si
-    ;di--
-    dec di
-    
-    mov al, [si]
-    
-    mov [di], al
-    
-    inc si
-    dec di
-            
-    mov al, [si]
-    
-    mov [di], al
-    
-    inc si
-    dec di    
-    
-    mov al, [si]
-    
-    mov [di], al
-    
-    inc si
-    dec di
-    
-    mov al, [si]
-    
-    mov [di], al
-    
-    inc si
-    dec di
-    
-    mov al, [si]
-    
-    mov [di], al
-    
-   
 endp main
 end main
