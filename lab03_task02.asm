@@ -7,7 +7,7 @@ len1 equ $-str1
 str2 db "this is Assembly Language Programming"
 len2 equ $-str2
 
-finalStr db 50 dup(?)
+finalStr db 60 dup(?)
 
 
 .code
@@ -21,31 +21,38 @@ main proc
     
     mov al, 0
     
-    concatenateString1:
+    mov bl, len1
+    add bl, len2
+    
+    concatenate:
         cmp al, len1
-        jg concatenateString2
+        jle concatenateString1
         
+        cmp bl, al
+        jge concatenateString2
+        jl break
+        
+        
+        
+        back:
+            inc al
+            inc si   
+    
+    jmp concatenate
+    
+    concatenateString1:
         mov bl, [di]
         mov [si], bl
         
-        inc al
-        inc si
         inc di
+        jmp back
             
-    concatenateString2:
-         mov bl, len1
-         add bl, len2
-    
-         cmp al, bl
-         jg break
-         
+    concatenateString2: 
          mov bl, [bx]
          mov [si], bl
          
-         inc al
-         inc si
          inc bx
-         
+         jmp back
          
     break:
     
